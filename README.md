@@ -3,8 +3,10 @@
 This project collects Powershell scripts which help to *debloat* Windows 10,
 tweak common settings and install basic software components.
 
-I develop those scripts on a Windows 10 Professional 64-Bit virtual machine.
-Please let me know if you encounter any issues with other Windows 10 versions.
+I develop those scripts on a Windows 10 Professional 64-Bit (English) virtual
+machine. Please let me know if you encounter any issues with other Windows 10
+versions. Although I may not spend time fixing issues related to the Home
+Edition or a different language, it's still good to know what's going on.
 
 Note that **there is no undo**, I recommend only using these scripts on a fresh
 install (including updates). Test everything after running them before
@@ -34,6 +36,24 @@ Unblock PowerShell scripts and modules within this directory:
 2. Edit the scripts to fit your need.
 3. Run the scripts
 4. `PS > Restart-Computer`
+
+## Known Issues
+
+### Startmenu Search
+
+After running the scripts, the startmenu search-box may no longer work on newly
+created accounts. It seems like there is an issue with account initilization
+that is triggered when disabling the GeoLocation service. Following workaround
+has been discovered by BK from Atlanta:
+
+1. Delete registry key `HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\lfsvc\TriggerInfo\3`
+2. Re-enable GeoLocation service (set startup type to `Automatic`)
+3. Reboot
+4. Login with the account having the stated issue
+5. Start Cortana and set your preferences accordingly (web search and whatnot)
+
+You may now disable the GeoLocation service again, the search box should remain
+functional.
 
 ## Interactivity
 

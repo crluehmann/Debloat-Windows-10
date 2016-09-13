@@ -16,10 +16,13 @@ $apps = @(
     "Microsoft.BingNews"
     "Microsoft.BingSports"
     "Microsoft.BingWeather"
+    #"Microsoft.FreshPaint"
     "Microsoft.Getstarted"
     "Microsoft.MicrosoftOfficeHub"
     "Microsoft.MicrosoftSolitaireCollection"
+    #"Microsoft.MicrosoftStickyNotes"
     "Microsoft.Office.OneNote"
+    #"Microsoft.OneConnect"
     "Microsoft.People"
     "Microsoft.SkypeApp"
     #"Microsoft.Windows.Photos"
@@ -42,12 +45,28 @@ $apps = @(
     "Microsoft.Messaging"
     "Microsoft.Office.Sway"
 
+
+    #Redstone apps
+    "Microsoft.BingFoodAndDrink"
+    "Microsoft.BingTravel"
+    "Microsoft.BingHealthAndFitness"
+    "Microsoft.WindowsReadingList"
+
     # non-Microsoft
     "9E2F88E3.Twitter"
     "Flipboard.Flipboard"
     "ShazamEntertainmentLtd.Shazam"
     "king.com.CandyCrushSaga"
+    "king.com.CandyCrushSodaSaga"
+    "king.com.*"
     "ClearChannelRadioDigital.iHeartRadio"
+    "4DF9E0F8.Netflix"
+    "6Wunderkinder.Wunderlist"
+    "Drawboard.DrawboardPDF"
+    "2FE3CB00.PicsArt-PhotoStudio"
+    "D52A8D61.FarmVille2CountryEscape"
+    "TuneIn.TuneInRadio"
+    #"TheNewYorkTimes.NYTCrossword"
 
     # apps which cannot be removed using Remove-AppxPackage
     #"Microsoft.BioEnrollment"
@@ -60,6 +79,8 @@ $apps = @(
 )
 
 foreach ($app in $apps) {
+    echo "Trying to remove $app"
+
     Get-AppxPackage -Name $app -AllUsers | Remove-AppxPackage
 
     Get-AppXProvisionedPackage -Online |
