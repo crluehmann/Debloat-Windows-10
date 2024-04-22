@@ -5,10 +5,10 @@
 
 Import-Module -DisableNameChecking $PSScriptRoot\..\lib\take-own.psm1
 
-echo "Elevating priviledges for this process"
+Write-Output "Elevating priviledges for this process"
 do {} until (Elevate-Privileges SeTakeOwnershipPrivilege)
 
-echo "Force removing system apps"
+Write-Output "Force removing system apps"
 $needles = @(
     #"Anytime"
     "BioEnrollment"
@@ -19,18 +19,21 @@ $needles = @(
     "Feedback"
     "Flash"
     "Gaming"
+    #"Holo"
     #"InternetExplorer"
     #"Maps"
+    #"MiracastView"
     "OneDrive"
+    #"SecHealthUI"
     #"Wallet"
     #"Xbox"          # This will result in a bootloop since upgrade 1511
 )
 
 foreach ($needle in $needles) {
-    echo "Trying to remove all packages containing $needle"
+    Write-Output "Trying to remove all packages containing $needle"
 
-    $pkgs = (ls "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages" |
-        where Name -Like "*$needle*")
+    $pkgs = (Get-ChildItem "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages" |
+        Where-Object Name -Like "*$needle*")
 
     foreach ($pkg in $pkgs) {
         $pkgname = $pkg.Name.split('\')[-1]
